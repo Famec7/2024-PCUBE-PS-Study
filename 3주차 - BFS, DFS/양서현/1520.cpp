@@ -1,26 +1,31 @@
 //1520번: 내리막 길
 
-#include <stdio.h>
+#include <iostream>
+#include <cmath>
 #pragma warning(disable:4996)
 #pragma warning(disable:6031)
+using namespace std;
 
-int n, m, arr[500][500], dp[500][500];
+#define MAX_NM 500
 
-int check(int x0, int y0) {
-    int dx[4] = { 0, 0, 1, -1 };
-    int dy[4] = { 1, -1, 0, 0 };
+int n, m, arr[MAX_NM][MAX_NM], dp[MAX_NM][MAX_NM];
+
+const int dx[4] = { 0, 0, 1, -1 };
+const int dy[4] = { 1, -1, 0, 0 };
+
+void check(int x0, int y0) {
     int cnt = 0;
 
-    for (int i = 0; i < 4; i++) {
-        int x = x0 + dx[i];
-        int y = y0 + dy[i];
+    for (int d = 0; d < 4; d++) {
+        int x = x0 + dx[d];
+        int y = y0 + dy[d];
 
-        if (x >= 0 && x < n && y >= 0 && y < m) {
-            if (arr[x][y] > arr[x0][y0]) cnt += dp[x][y];
-        }
+        if (x < 0 || x >= n || y < 0 || y >= m) continue;
+
+        if (arr[x][y] > arr[x0][y0]) cnt += dp[x][y];
     }
 
-    if (cnt > dp[x0][y0]) dp[x0][y0] = cnt;
+    dp[x0][y0] = max(dp[x0][y0], cnt);
 }
 
 int main() {
@@ -34,6 +39,7 @@ int main() {
 
     dp[0][0] = 1;
 
+    //최초 전파
     for (int x0 = 0; x0 < n; x0++) {
         for (int y0 = 0; y0 < m; y0++) {
             check(x0, y0);
@@ -44,12 +50,14 @@ int main() {
 
     for (int i = 0; i < (max - 1) / 2; i++) {
 
+        //역방향 전파
         for (int x0 = n - 1; x0 >= 0; x0--) {
             for (int y0 = m - 1; y0 >= 0; y0--) {
                 check(x0, y0);
             }
         }
 
+        //정방향 전파
         for (int x0 = 0; x0 < n; x0++) {
             for (int y0 = 0; y0 < m; y0++) {
                 check(x0, y0);
