@@ -15,7 +15,7 @@ int dy[4] = { 1, -1, 0, 0 };
 void BFS(int x, int y) {
     queue<pair<int, int>> q;
 
-    q.push(pair<int, int>(x, y));
+    q.push(make_pair(x, y));
     visited[y][x] = 1;
 
     while (!q.empty()) {

@@ -18,6 +18,7 @@ int getTomatoDay() {
     int day = 0;
     queue<tuple<int, int, int>> q;
 
+    // 익은 토마토가 있는 위치를 모두 큐에 삽입
     for (int z = 0; z < h; z++) {
         for (int y = 0; y < n; y++) {
             for (int x = 0; x < m; x++) {
@@ -49,8 +50,10 @@ int getTomatoDay() {
     for (int z = 0; z < h; z++) {
         for (int y = 0; y < n; y++) {
             for (int x = 0; x < m; x++) {
+                // 익지 않은 토마토가 남아있다면 토마토가 모두 익지 못하는 상황이므로 -1 반환
                 if (map[z][y][x] == 0)
                     return -1;
+                // 최대 일수 계산
                 if (map[z][y][x] > day)
                     day = map[z][y][x];
             }
@@ -65,6 +68,7 @@ int main() {
 
     cin >> m >> n >> h;
 
+    // 맵 초기화
     for (z = 0; z < h; z++) {
         for (y = 0; y < n; y++) {
             for (x = 0; x < m; x++) {
@@ -73,6 +77,7 @@ int main() {
         }
     }
     
+    // 맵 정보 입력
     for (z = 0; z < h; z++) {
         for (y = 0; y < n; y++) {
             for (x = 0; x < m; x++) {

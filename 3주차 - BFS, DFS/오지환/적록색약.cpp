@@ -14,7 +14,7 @@ int dy[4] = { 1, -1, 0, 0 };
 void areaBFS(int x, int y) {
     queue<pair<int, int>> q;
 
-    q.push(pair<int, int>(x, y));
+    q.push(make_pair(x, y));
     visited[y][x] = 1;
 
     int curColor = map[y][x];
@@ -28,7 +28,7 @@ void areaBFS(int x, int y) {
             int nextX = curX + dx[i];
             int nextY = curY + dy[i];
             if ((nextX >= 0 && nextX < n) && (nextY >= 0 && nextY < n) && visited[nextY][nextX] == 0 && map[nextY][nextX] == curColor) {
-                q.push(pair<int, int>(nextX, nextY));
+                q.push(make_pair(nextX, nextY));
                 visited[nextY][nextX] = 1;
             }
         }
